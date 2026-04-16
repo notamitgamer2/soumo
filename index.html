@@ -1,1 +1,336 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material 3 Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* M3 Light Theme Tokens (Baseline) */
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+            --md-sys-color-secondary: #625B71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-on-secondary-container: #1D192B;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-on-surface: #1D1B20;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-surface-container-low: #F7F2FA;
+            --md-sys-color-surface-container: #F3EDF7;
+            --md-sys-color-surface-container-high: #ECE6F0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .m3-title {
+            font-family: 'Google Sans', sans-serif;
+        }
+
+        /* M3 Component Styles */
+        .m3-card {
+            background-color: var(--md-sys-color-surface-container-low);
+            border-radius: 28px; /* XL Radius */
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .m3-card-elevated {
+            background-color: var(--md-sys-color-surface-container-low);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
+        .m3-btn-filled {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border-radius: 100px;
+            padding: 10px 24px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: box-shadow 0.2s;
+        }
+
+        .m3-btn-tonal {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            border-radius: 100px;
+            padding: 10px 24px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .m3-btn-outlined {
+            border: 1px solid var(--md-sys-color-outline);
+            color: var(--md-sys-color-primary);
+            border-radius: 100px;
+            padding: 10px 24px;
+            font-weight: 500;
+        }
+
+        .m3-fab {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            width: 56px;
+            height: 56px;
+            border-radius: 16px; /* Large Radius */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.1s;
+        }
+
+        .m3-fab:active {
+            transform: scale(0.95);
+        }
+
+        .m3-nav-item {
+            border-radius: 100px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            color: var(--md-sys-color-on-surface-variant);
+            transition: background-color 0.2s;
+        }
+
+        .m3-nav-item.active {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            font-weight: 700;
+        }
+
+        .m3-nav-item:hover:not(.active) {
+            background-color: var(--md-sys-color-surface-variant);
+        }
+
+        /* Responsive Navigation Drawer */
+        #nav-drawer {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 1024px) {
+            #nav-drawer {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            #nav-drawer.open {
+                transform: translateX(0);
+            }
+        }
+
+        /* SVG Icons Simulation */
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Navigation Drawer -->
+    <aside id="nav-drawer" class="w-80 bg-[var(--md-sys-color-surface-container)] p-4 flex flex-col gap-2 shrink-0 border-r border-gray-200 lg:border-none">
+        <div class="px-6 py-8">
+            <h1 class="text-2xl font-bold m3-title text-[var(--md-sys-color-primary)]">Material 3</h1>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">Design System Showcase</p>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <div class="m3-nav-item active">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span>Dashboard</span>
+            </div>
+            <div class="m3-nav-item">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span>Favorites</span>
+            </div>
+            <div class="m3-nav-item">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>
+                <span>Messages</span>
+            </div>
+            <div class="m3-nav-item">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                <span>Profile</span>
+            </div>
+            <hr class="my-4 border-[var(--md-sys-color-outline)] opacity-20 mx-4">
+            <div class="m3-nav-item">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                <span>Settings</span>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 lg:p-8 overflow-y-auto">
+        <!-- Top App Bar (Mobile) -->
+        <header class="flex items-center justify-between mb-8 lg:hidden">
+            <button id="menu-toggle" class="p-2 text-[var(--md-sys-color-primary)]">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            </button>
+            <h2 class="text-xl font-medium m3-title">Dashboard</h2>
+            <div class="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)]"></div>
+        </header>
+
+        <!-- Welcome Section -->
+        <section class="mb-10">
+            <h2 class="text-3xl lg:text-4xl mb-2 m3-title font-medium text-[var(--md-sys-color-on-surface)]">Hello, Designer</h2>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] text-lg">Here's what's happening in your Material 3 workspace.</p>
+        </section>
+
+        <!-- Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
+            <!-- Elevated Card -->
+            <div class="m3-card m3-card-elevated">
+                <h3 class="text-xl font-medium mb-2">Adaptive Design</h3>
+                <p class="text-[var(--md-sys-color-on-surface-variant)] mb-6">M3 introduces a new set of layout tokens that help components adapt to different screen sizes seamlessly.</p>
+                <button class="m3-btn-tonal w-full justify-center">Read More</button>
+            </div>
+
+            <!-- Tonal Card -->
+            <div class="m3-card bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]">
+                <h3 class="text-xl font-medium mb-2">Dynamic Color</h3>
+                <p class="opacity-80 mb-6">Experience the magic of tonal palettes. Colors are derived from the user's wallpaper for a personalized feel.</p>
+                <button class="m3-btn-filled bg-[var(--md-sys-color-on-secondary-container)] text-[var(--md-sys-color-secondary-container)] w-full justify-center">Configure</button>
+            </div>
+
+            <!-- Outlined Card -->
+            <div class="m3-card border border-[var(--md-sys-color-outline)] bg-transparent">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-[var(--md-sys-color-primary)] flex items-center justify-center text-white">A</div>
+                    <div>
+                        <h3 class="font-medium">Recent Activity</h3>
+                        <p class="text-sm opacity-60">2 hours ago</p>
+                    </div>
+                </div>
+                <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4 italic">"The transition to M3 is smooth and the rounded corners feel natural."</p>
+                <div class="flex gap-2">
+                    <button class="m3-btn-outlined py-1 px-4 text-sm">Dismiss</button>
+                    <button class="m3-btn-filled py-1 px-4 text-sm">Review</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Component Gallery Section -->
+        <section class="m3-card mb-10 bg-[var(--md-sys-color-surface-container-high)]">
+            <h3 class="text-2xl mb-6 m3-title">Button Palette</h3>
+            <div class="flex flex-wrap gap-4 items-center">
+                <button class="m3-btn-filled">
+                    <svg class="icon w-5 h-5" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    <span>Filled Button</span>
+                </button>
+
+                <button class="m3-btn-tonal">
+                    <span>Tonal Button</span>
+                </button>
+
+                <button class="m3-btn-outlined">
+                    <span>Outlined</span>
+                </button>
+
+                <button class="text-[var(--md-sys-color-primary)] font-medium px-4 hover:bg-[var(--md-sys-color-primary-container)] hover:bg-opacity-20 py-2 rounded-full transition-colors">
+                    Text Button
+                </button>
+            </div>
+        </section>
+
+        <!-- Form Elements Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="m3-card">
+                <h3 class="text-xl mb-4 font-medium">Input Fields</h3>
+                <div class="space-y-4">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-sm font-medium ml-4 text-[var(--md-sys-color-primary)]">Email Address</label>
+                        <input type="text" placeholder="example@gmail.com" class="bg-[var(--md-sys-color-surface-variant)] border-b border-[var(--md-sys-color-outline)] px-4 py-3 rounded-t-lg focus:outline-none focus:border-b-2 focus:border-[var(--md-sys-color-primary)] transition-all">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-sm font-medium ml-4 text-[var(--md-sys-color-on-surface-variant)]">Username</label>
+                        <input type="text" placeholder="Enter username" class="border border-[var(--md-sys-color-outline)] px-4 py-3 rounded-xl bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary)] transition-all">
+                    </div>
+                </div>
+            </div>
+
+            <div class="m3-card flex flex-col justify-center">
+                <h3 class="text-xl mb-4 font-medium">Selectors</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <span>Enable Notifications</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer" checked>
+                            <div class="w-14 h-8 bg-[var(--md-sys-color-surface-variant)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-[var(--md-sys-color-outline)] after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-[var(--md-sys-color-primary)] peer-checked:after:bg-[var(--md-sys-color-on-primary)]"></div>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Dark Mode</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-14 h-8 bg-[var(--md-sys-color-surface-variant)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-[var(--md-sys-color-outline)] after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-[var(--md-sys-color-primary)] peer-checked:after:bg-[var(--md-sys-color-on-primary)]"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacer for FAB -->
+        <div class="h-24"></div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="m3-fab" title="Create New">
+        <svg class="icon w-8 h-8" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navDrawer = document.getElementById('nav-drawer');
+        const mainContent = document.querySelector('main');
+
+        menuToggle?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navDrawer.classList.toggle('open');
+        });
+
+        // Close drawer on mobile when clicking main content
+        mainContent.addEventListener('click', () => {
+            if (window.innerWidth < 1024) {
+                navDrawer.classList.remove('open');
+            }
+        });
+
+        // Simple Nav Item interaction
+        const navItems = document.querySelectorAll('.m3-nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                if (window.innerWidth < 1024) {
+                    navDrawer.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
